@@ -1,0 +1,2080 @@
+Comparing files FISH_NXP_M0_IAR.s and FISH_NXP_M0_IARG.S
+***** FISH_NXP_M0_IAR.s
+// v1.7:
+// Signon updated. (FOR TEST - FIX B4 SHIP)
+// Updated .hex .out and sym.bat
+
+// MIGRATE TO STM AFTER TEST:
+// TESTING TRUE FLAG = -1 IN ZEQU: 0=
+// Add SXTB Rd, Rm SXTH Rd, Rm
+// Add VIO_UARTX, VIO_KEY, VIO_?KEY and VIO_EMIT
+// (EMIT), (KEY?), and (KEY).
+
+// PROMPT SETUP - ADDED P(PROMPT), PON(PROMPTON) AND POFF(PROMPTOFF) TO FISH RM
+// PROMPT SETUP touches FISH_NXP_M0_SYSTEM.s adding PROMPT: SV 
+// PROMPT SETUP touches FISH_NXP_M0_SLIB.s SV_INIT_VALUES: & FWARM: & QUIT:
+// Number Stuff Wordcat reorganized (search NOEXEC or WC_NUMBERS_NFA)
+***** FISH_NXP_M0_IARG.S
+// v1.7:
+// Signon updated.
+// Updated .hex .out and sym.bat
+// Number Stuff Wordcat reorganized (search NOEXEC or WC_NUMBERS_NFA)
+*****
+
+***** FISH_NXP_M0_IAR.s
+// DC8 '?' IS NOT
+//      DC8     'FISH ARM'
+        DC8     'FISH ARM TRUE = -1 TEST!!!'
+//------------------------------------------------------------------------------
+***** FISH_NXP_M0_IARG.S
+// DC8 '?' IS NOT
+        DC8     'FISH ARM'
+//------------------------------------------------------------------------------
+*****
+
+***** FISH_NXP_M0_IAR.s
+        DC32    EQUAL           // ( 0 0 addr f -- )
+#ifdef TRUE_EQU_NEG_ONE         // FIX ASSUMPTION THIS FLAG WILL BE ONE!
+        DC32    ONE, ANDD       // ( 0 0 addr f -- ) FLAG IS ONE OR ZERO
+#endif
+        DC32    DUP, TOR        // ( 0 0 addr f -- ) f >R, addr = count byte
+        DC32    PLUS            // ASSUMPTION FLAG WILL BE 1 or 0
+        DC32    LIT, -1
+
+***** FISH_NXP_M0_IARG.S
+        DC32    EQUAL           // ( 0 0 addr f -- )
+        DC32    DUP, TOR        // ( 0 0 addr f -- ) copy of f >R
+        DC32    PLUS            // ASSUMPTION FLAG WILL BE 1 or 0
+
+        DC32   LIT, -1
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+        DC32    ONEP    // ( TIB TIB+LEN+1 TIB+1 -- ) SKIP COUNT BYTE
+
+///* FISH System compiled KEY does not issue XON - user version does!
+#ifdef XON_XOFF
+***** FISH_NXP_M0_IARG.S
+        DC32    ONEP    // ( TIB TIB+LEN+1 TIB+1 -- ) SKIP COUNT BYTE
+#ifdef XON_XOFF
+*****
+
+***** FISH_NXP_M0_IAR.s
+#endif
+//*/
+
+// ( ORGIGINAL-TIB TIB+LEN+1 TIB+1 -- ORGIGINAL-TIB ) 
+***** FISH_NXP_M0_IARG.S
+#endif
+// ( ORGIGINAL-TIB TIB+LEN+1 TIB+1 -- ORGIGINAL-TIB ) 
+*****
+
+***** FISH_NXP_M0_IAR.s
+EXPE1:
+        DC32    KEY     // CAN BREAKPOINT OR SET TO 0x0D - XON done there.
+#ifdef XON_XOFF
+***** FISH_NXP_M0_IARG.S
+EXPE1:
+        DC32    KEY     // CAN BREAKPOINT OR CHANGE TO BE 0x0D ONLY
+#ifdef XON_XOFF
+*****
+
+***** FISH_NXP_M0_IAR.s
+#ifdef XON_XOFF
+        DC32    XOFF            // Count reached or cr = 2nd XOFF
+#endif
+***** FISH_NXP_M0_IARG.S
+#ifdef XON_XOFF
+        DC32    XOFF            // FOR CASE OF count reached befor cr
+#endif
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_FISH_SYS: = FISH System: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_FISH_SYS: = FISH SYSTEM CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_STACK_NFA = Stack Stuff: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_STACK_NFA = STACK STUFF CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_RWMEMORY_NFA = Read and Write Memory With: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_RWMEMORY_NFA = MEMORY READ AND WRITE CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_COMPILE_NFA = Inside Colon WORDS: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_COMPILE_NFA = COMPILING WORDS CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_CREATE_NFA = CREATE WORDS With: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_CREATE_NFA = CREATEing WORDS CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CODE (2)
+        EORS    t, t
+        POP2n
+        POP2w
+        SUBS    n, n, w
+        BEQ     EQUAL_TRUE
+        TPUSH   // zero
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CODE (2)
+        POP2t
+        POP2n
+        SUBS    t, t, n
+        BEQ     EQUAL_TRUE
+        EORS    t, t
+        TPUSH
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+EQUAL_TRUE:
+#ifdef TRUE_EQU_NEG_ONE
+        SUBS    t, #1 // -1
+#else
+        ADDS    t, #1   // 1
+#endif
+        TPUSH
+***** FISH_NXP_M0_IARG.S
+EQUAL_TRUE:
+        MOVS    t, #1
+        TPUSH
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CODE (2)
+#ifdef TRUE_EQU_NEG_ONE
+        EORS    t, t    // zero t
+        SUBS    t, #1   // -1
+#else
+        MOVS    t, #1
+#endif
+        POP2n           // n2
+        POP2w           // n1
+        CMP     n, w    // n1 < n2
+        BGT     LESS1
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CODE (2)
+        MOVS    t, #1
+        POP2n                           // n2
+        POP2w                           // n1
+        CMP     n, w        // n1 < n2
+        BGT     LESS1
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      > GREATERTHAN:  ( n1 n2 -- f )  SIGNED: L0
+//      Leave a true flag if n1 is greater than n2 otherwise a false flag.
+***** FISH_NXP_M0_IARG.S
+
+//      > GREATERTHAN:  ( n1 n2 --  f ) SIGNED: L0
+//      Leave a true flag if n1 is greater than n2 otherwise a false flag.
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CODE (2)
+        EORS    t, t    // zero t
+        POP2n
+        CMP     n, #0
+        BNE     ZEQU1
+#ifdef TRUE_EQU_NEG_ONE
+        SUBS    t, t, #1
+#else
+        ADDS    t, t, #1
+#endif
+//      TPUSH
+ZEQU1:
+        TPUSH
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CODE (2)
+        POP2t
+        CMP     t, #0
+        BNE     ZEQU1
+
+        ADDS    t, t, #1
+        TPUSH
+ZEQU1:
+        EORS    t, t    // zero t
+        TPUSH
+*****
+
+***** FISH_NXP_M0_IAR.s
+#endif
+#ifdef TRUE_EQU_NEG_ONE
+        EORS    t, t
+        SUBS    t, #1   // TRUE -1
+#else
+        MOVS    t, #1   // TRUE
+#endif
+        ORRS    n, n, n // SET FLAGS
+***** FISH_NXP_M0_IARG.S
+#endif
+        MOVS    t, #1   // TRUE
+        ORRS    n, n, n // SET FLAGS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+        EORS    t, t    // FALSE
+ZLESS1:
+***** FISH_NXP_M0_IARG.S
+
+        MOVS    t, #0   // FALSE
+ZLESS1:
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      SXTH SXH:       ( nl -- n3 )
+//      Signe extend HALFWORD in the word on the stack
+
+***** FISH_NXP_M0_IARG.S
+
+//      REVW REVW:      ( n -- n )
+//      Reverse bytes in n.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+SXTH_NFA:
+        DC8     0x84
+        DC8     'SXT'
+        DC8     'H'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+REVW_NFA:
+        DC8     0x84
+        DC8     'REV'
+        DC8     'W'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+*****
+
+***** FISH_NXP_M0_IAR.s
+        DC32    XORR_NFA
+SXH:
+        DC32    .+5
+***** FISH_NXP_M0_IARG.S
+        DC32    XORR_NFA
+REVW:
+        DC32    .+5
+*****
+
+***** FISH_NXP_M0_IAR.s
+        POP2t
+        SXTH     t, t
+        TPUSH
+***** FISH_NXP_M0_IARG.S
+        POP2t
+        REV     t, t
+        TPUSH
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      SXTB SXB:       ( nl -- n3 )
+//      Signe extend byte in the word on the stack
+
+***** FISH_NXP_M0_IARG.S
+
+//      ASR ASR:   ( sn count -- sn' )  
+//      Shift sn (sign-extended) right by count.
+//      Valid count values are 0 to 31.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+SXTB_NFA:
+        DC8     0x84
+        DC8     'SXT'
+        DC8     'B'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    SXTH_NFA
+SXB:
+        DC32    .+5
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+ASR_NFA:
+        DC8     0x83
+        DC8     'AS'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    REVW_NFA
+ASR:
+        DC32    .+5
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CODE (2)
+        POP2t
+        SXTB     t, t
+        TPUSH
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CODE (2)
+        POP2w           ; shift count
+        POP2t           ; original data
+        ASRS    t, t, w
+        TPUSH           ; shifted data
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      REVW REVW:      ( n -- n )
+//      Reverse bytes in n.
+
+***** FISH_NXP_M0_IARG.S
+
+//      LSR LSR:   ( n count -- n' )
+//      Logical (zero-extended) shift right by count.
+//      Valid count values are 0 to 31.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+REVW_NFA:
+        DC8     0x84
+        DC8     'REV'
+        DC8     'W'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    SXTB_NFA
+REVW:
+        DC32    .+5
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+LSR_NFA:
+        DC8     0x83
+        DC8     'LS'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    ASR_NFA
+LSR:
+        DC32    .+5
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CODE (2)
+        POP2t
+        REV     t, t
+        TPUSH
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CODE (2)
+        POP2w           ; shift count
+        POP2t           ; original data
+        LSRS    t, t, w
+        TPUSH           ; shifted data
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      ASR ASR:   ( sn count -- sn' )  
+//      Shift sn (sign-extended) right by count.
+//      Valid count values are 0 to 31.
+***** FISH_NXP_M0_IARG.S
+
+//      LSL LSL:   ( n count -- n' )
+//      Logical (zero-extended) shift left by count.
+//      Valid count values are 0 to 31.
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+ASR_NFA:
+        DC8     0x83
+        DC8     'AS'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    REVW_NFA
+ASR:
+        DC32    .+5
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+LSL_NFA:
+        DC8     0x83
+        DC8     'LS'
+        DC8     'L'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    LSR_NFA
+LSL:
+        DC32    .+5
+*****
+
+***** FISH_NXP_M0_IAR.s
+        POP2t           ; original data
+        ASRS    t, t, w
+        TPUSH           ; shifted data
+
+***** FISH_NXP_M0_IARG.S
+        POP2t           ; original data
+        LSLS    t, t, w
+        TPUSH           ; shifted data---
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      LSR LSR:   ( n count -- n' )
+//      Logical (zero-extended) shift right by count.
+//      Valid count values are 0 to 31.
+
+***** FISH_NXP_M0_IARG.S
+
+//      .R DOTR:        ( sn1 n2 -- ) SIGNED:
+//      Print the signed number sn1 right aligned in a field whose width is n2.
+//      No following blank is printed.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+LSR_NFA:
+        DC8     0x83
+        DC8     'LS'
+        DC8     'R'+0x80
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOTR_NFA:
+        DC8     0x82
+        DC8     '.'
+        DC8     'R'+0x80
+*****
+
+***** FISH_NXP_M0_IAR.s
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    ASR_NFA
+LSR:
+        DC32    .+5
+ SECTION .text : CODE (2)
+        POP2w           ; shift count
+        POP2t           ; original data
+        LSRS    t, t, w
+        TPUSH           ; shifted data
+
+***** FISH_NXP_M0_IARG.S
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    LSL_NFA
+DOTR:
+        DC32    DOCOL
+        DC32    TOR
+        DC32    STOD
+        DC32    RFROM
+        DC32    DDOTR
+        DC32    SEMIS
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      LSL LSL:   ( n count -- n' )
+//      Logical (zero-extended) shift left by count.
+//      Valid count values are 0 to 31.
+
+***** FISH_NXP_M0_IARG.S
+
+//      .RU DOTRU:      ( n1 n2 -- ) UNSIGNED:
+//      Print the unsigned number n1 right aligned in a field whose width is n2.
+//      No following blank is printed.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+LSL_NFA:
+        DC8     0x83
+        DC8     'LS'
+        DC8     'L'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    LSR_NFA
+LSL:
+        DC32    .+5
+ SECTION .text : CODE (2)
+        POP2w           ; shift count
+        POP2t           ; original data
+        LSLS    t, t, w
+        TPUSH           ; shifted data---
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOTRU_NFA:
+        DC8     0x83
+        DC8     '.R'
+        DC8     'U'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTR_NFA
+DOTRU:
+        DC32    DOCOL
+        DC32    TOR
+        DC32    ZERO
+        DC32    BDIGS, DIGS, EDIGS
+        DC32    DUP, RFROM
+        DC32    SWAP, SUBB, SPACES, TYPE
+#ifdef IO2TP
+          DC32 NOOP
+        DC32    CLRPAD  // Resets OUT
+#endif
+        DC32    SEMIS
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      .R DOTR:        ( sn1 n2 -- ) SIGNED:
+//      Print the signed number sn1 right aligned in a field whose width is n2.
+//      No following blank is printed.
+
+***** FISH_NXP_M0_IARG.S
+
+//      U. UDOT:        ( n -- ) USIGNED DOT
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DOTR_NFA:
+        DC8     0x82
+        DC8     '.'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    LSL_NFA
+DOTR:
+        DC32    DOCOL
+        DC32    TOR
+        DC32    STOD
+        DC32    RFROM
+        DC32    DDOTR
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+UDOT_NFA:
+        DC8     0x82
+        DC8     'U'
+        DC8     '.'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTRU_NFA
+UDOT:
+        DC32    DOCOL
+        DC32    ZERO
+        DC32    DDOT    // SPACE DONE HERE
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      .RU DOTRU:      ( n1 n2 -- ) UNSIGNED:
+//      Print the unsigned number n1 right aligned in a field whose width is n2.
+//      No following blank is printed.
+
+***** FISH_NXP_M0_IARG.S
+
+//      ? QUES: ( addr -- )
+//      Print the value contained at the address in free format according to
+//      the current base using DOT.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DOTRU_NFA:
+        DC8     0x83
+        DC8     '.R'
+        DC8     'U'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTR_NFA
+DOTRU:
+        DC32    DOCOL
+        DC32    TOR
+        DC32    ZERO
+        DC32    BDIGS, DIGS, EDIGS
+        DC32    DUP, RFROM
+        DC32    SWAP, SUBB, SPACES, TYPE
+#ifdef IO2TP
+          DC32 NOOP
+        DC32    CLRPAD  // Resets OUT
+#endif
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+QUES_NFA:
+        DC8     0x81
+        DC8     '?'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UDOT_NFA
+QUES:
+        DC32    DOCOL
+        DC32    AT
+        DC32    DOT
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      U. UDOT:        ( n -- ) USIGNED DOT
+
+***** FISH_NXP_M0_IARG.S
+
+//      . DOT:  ( n -- ) SIGNED 2'S COMPLEMENT:
+//      Print a number from a signed 32 bit two's complement value,
+//      converted according to the numeric base.
+//      A trailing blanks follows.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+UDOT_NFA:
+        DC8     0x82
+        DC8     'U'
+        DC8     '.'+0x80
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOT_NFA:
+        DC8     0x81
+        DC8     '.'+0x80
+*****
+
+***** FISH_NXP_M0_IAR.s
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTRU_NFA
+UDOT:
+        DC32    DOCOL
+        DC32    ZERO
+        DC32    DDOT    // SPACE DONE HERE
+***** FISH_NXP_M0_IARG.S
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    QUES_NFA
+DOT:
+        DC32    DOCOL
+        DC32    STOD
+        DC32    DDOT    // SPACE DONE HERE
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      ? QUES: ( addr -- )
+//      Print the value contained at the address in free format according to
+//      the current base using DOT.
+
+***** FISH_NXP_M0_IARG.S
+
+//------------------------------ DOTBASE SECTION -------------------------------
+
+#ifndef SRM
+//      .B DOTBIN:      ( n -- )
+//      Prints TOS in BINARY using DOT, not affecting Base in the system
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+QUES_NFA:
+        DC8     0x81
+        DC8     '?'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UDOT_NFA
+QUES:
+        DC32    DOCOL
+        DC32    AT
+        DC32    DOT
+        DC32    SEMIS
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOTBIN_NFA:
+        DC8     0x82
+        DC8     '.'
+        DC8     'B'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOT_NFA
+DOTBIN:
+        DC32    DOCOL
+        DC32    TWO, DOTBASE
+        DC32    SEMIS
+#endif  // not SRM
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      . DOT:  ( n -- ) SIGNED 2'S COMPLEMENT:
+//      Print a number from a signed 32 bit two's complement value,
+//      converted according to the numeric base.
+//      A trailing blanks follows.
+
+ SECTION .text : CONST (2)
+DOT_NFA:
+        DC8     0x81
+        DC8     '.'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    QUES_NFA
+DOT:
+        DC32    DOCOL
+        DC32    STOD
+        DC32    DDOT    // SPACE DONE HERE
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+
+//      .H DOTHEX:      ( n -- )
+//      Prints TOS in Hex using DOT, not affecting Base in the system
+ SECTION .text : CONST (2)
+DOTHEX_NFA:
+        DC8     0x82
+        DC8     '.'
+        DC8     'H'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+#ifdef SRM
+        DC32    DOT_NFA
+#else
+        DC32    DOTBIN_NFA
+#endif
+DOTHEX:
+        DC32    DOCOL
+#ifdef SRM
+        DC32    BASE_TO_R12, HEX, UDOT, BASE_FROM_R12
+#else
+        DC32    LIT, 16, DOTBASE        // this version appends BASE Suffix
+#endif
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//------------------------------ DOTBASE SECTION -------------------------------
+
+#ifndef SRM
+//      .B DOTBIN:      ( n -- )
+//      Prints TOS in BINARY using DOT, not affecting Base in the system
+
+***** FISH_NXP_M0_IARG.S
+
+#ifndef SRM
+//      .D DOTDEC:      ( n -- )
+//      Prints TOS in DECIMAL using DOT, not affecting Base in the system
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DOTBIN_NFA:
+        DC8     0x82
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOTDEC_NFA:
+        DC8     0x82
+*****
+
+***** FISH_NXP_M0_IAR.s
+        DC8     '.'
+        DC8     'B'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOT_NFA
+DOTBIN:
+        DC32    DOCOL
+        DC32    TWO, DOTBASE
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+        DC8     '.'
+        DC8     'D'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTHEX_NFA
+DOTDEC:
+        DC32    DOCOL
+        DC32    LIT, 10, DOTBASE
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      .H DOTHEX:      ( n -- )
+//      Prints TOS in Hex using DOT, not affecting Base in the system
+ SECTION .text : CONST (2)
+DOTHEX_NFA:
+        DC8     0x82
+        DC8     '.'
+        DC8     'H'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+***** FISH_NXP_M0_IARG.S
+
+//=============================== WORDCAT ====================================//
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_NUMBERS_NFA = NUMBERS CATEGORY
+
+ SECTION .text : CONST (2)
+WC_NUMBERS_NFA:
+        DC8     0x80+4+13
+        DC8     0x0D, 0x0A
+        DC8     'NUMBER Stuff:'
+        DC8     0x0D, 0x0A+0x80
+ ALIGNROM 2,0xFFFFFFFF
+*****
+
+***** FISH_NXP_M0_IAR.s
+#ifdef SRM
+        DC32    DOT_NFA
+#else
+        DC32    DOTBIN_NFA
+#endif
+DOTHEX:
+        DC32    DOCOL
+#ifdef SRM
+        DC32    BASE_TO_R12, HEX, UDOT, BASE_FROM_R12
+#else
+        DC32    LIT, 16, DOTBASE        // this version appends BASE Suffix
+#endif
+        DC32    SEMIS
+
+
+#ifndef SRM
+//      .D DOTDEC:      ( n -- )
+//      Prints TOS in DECIMAL using DOT, not affecting Base in the system
+
+***** FISH_NXP_M0_IARG.S
+#ifdef SRM
+        DC32    DOTHEX_NFA
+#else
+        DC32    DOTDEC_NFA
+#endif
+//=============================== UART0_INIT =================================//
+
+// LFA ABOVE NEEDS TO BE WC_NUMBERS_NFA
+
+#if     NXP_M0_11xx | NXP_M0_1115
+$FISH_NXP_M0_11xx_UART0_INIT.s
+#endif  // NXP_M0_11xx
+
+#ifdef NXP_M0_812
+$FISH_NXP_M0_812_UART0_INIT.s
+#endif  // NXP_M0_812
+
+// LFA BELOW NEEDS TO BE UART0_INIT_NFA
+
+//      MYBAUD MYBAUD: ( n -- ) BAUD MUST BE in DECIMAL or EQUIVALENT!!!
+//      MUST BE USED BEFORE USING UART0_INIT!!!
+//      Because FISH does a reset if you invoke a HARD FAULT RESET
+//      THIS MECHANISM IS ESSENTIAL TO STAYING AT USER SET BAUDRATE THRU A RESET!
+//      SET NON-INIT RAM VARIABLES DBAUD TO ZERO AND UBAUD n.
+//      See UART0_INIT
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DOTDEC_NFA:
+        DC8     0x82
+        DC8     '.'
+        DC8     'D'+0x80
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+MYBAUD_NFA:
+        DC8     0x86
+        DC8     'MYBAU'
+        DC8     'D'+0x80
+*****
+
+***** FISH_NXP_M0_IAR.s
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTHEX_NFA
+DOTDEC:
+        DC32    DOCOL
+        DC32    LIT, 10, DOTBASE
+        DC32    SEMIS
+#endif  // not SRM
+
+***** FISH_NXP_M0_IARG.S
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_INIT_NFA
+MYBAUD:
+        DC32    DOCOL
+        DC32    STRVA, 0, DBAUD
+        DC32    LIT, UBAUD, STORE       // SET UBAUD TO NEW BAUD FOR UART0_INIT
+        DC32    SEMIS
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//=============================== WORDCAT ====================================//
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_NUMBERS_NFA = NUMBER Stuff: CATEGORY
+
+ SECTION .text : CONST (2)
+WC_NUMBERS_NFA:
+        DC8     0x80+4+13
+        DC8     0x0D, 0x0A
+        DC8     'NUMBER Stuff:'
+        DC8     0x0D, 0x0A+0x80
+ ALIGNROM 2,0xFFFFFFFF
+#ifdef SRM
+        DC32    DOTHEX_NFA
+#else
+        DC32    DOTDEC_NFA
+#endif
+//=============================== UART0_INIT =================================//
+***** FISH_NXP_M0_IARG.S
+
+
+//=============================== UART0_INIT =================================//
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+// LFA ABOVE NEEDS TO BE WC_NUMBERS_NFA
+
+#if     NXP_M0_11xx | NXP_M0_1115
+$FISH_NXP_M0_11xx_UART0_INIT.s
+#endif  // NXP_M0_11xx
+
+#ifdef NXP_M0_812
+$FISH_NXP_M0_812_UART0_INIT.s
+#endif  // NXP_M0_812
+
+// LFA BELOW NEEDS TO BE UART0_INIT_NFA
+
+//      MYBAUD MYBAUD: ( n -- ) BAUD MUST BE in DECIMAL or EQUIVALENT!!!
+//      MUST BE USED BEFORE USING UART0_INIT!!!
+//      Because FISH does a reset if you invoke a HARD FAULT RESET
+//      THIS MECHANISM IS ESSENTIAL TO STAYING AT USER SET BAUDRATE THRU A RESET!
+//      SET NON-INIT RAM VARIABLES DBAUD TO ZERO AND UBAUD n.
+//      See UART0_INIT
+
+***** FISH_NXP_M0_IARG.S
+
+//      UART0_LSR UART0_LSR: ( -- value ) of NXP M0 UART 0 Line Status Register
+//      11xx:
+//      0x40008014 Reset value - 0x60 0b1100000
+//      After Init SEEING 0x96 FIRST
+//
+//      BIT 0 = Receiver Data Ready
+//      BIT 0 WHEN 0 = U0RBR is empty
+//      BIT 0 WHEN 1 = U0RBR contains valid data.
+//
+//      BIT 4 = Break Interrupt BI when 1
+//
+//      BIT 5 = Transmitter Holding Register Empty
+//      BIT 5 WHEN 0 = U0THR contains valid data
+//      BIT 5 WHEN 1 = U0THR is empty.
+//
+//      BIT 6 = Transmitter Empty
+//      BIT 6 WHEN 0 = U0THR and/or the U0TSR contains valid data.
+//      BIT 6 WHEN 1 = U0THR and the U0TSR are empty.
+
+//      81x:
+//      UART0_STAT // 40064008h UART0 STAT Line Status Register 
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+MYBAUD_NFA:
+        DC8     0x86
+        DC8     'MYBAU'
+        DC8     'D'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_INIT_NFA
+MYBAUD:
+        DC32    DOCOL
+        DC32    STRVA, 0, DBAUD
+        DC32    LIT, UBAUD, STORE       // SET UBAUD TO NEW BAUD FOR UART0_INIT
+        DC32    SEMIS
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+UART0_LSR_NFA:
+        DC8     0x89
+        DC8     'UART0_LS'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    MYBAUD_NFA
+UART0_LSR:
+        DC32    .+5
+ SECTION .text : CODE (2)
+#if     NXP_M0_11xx | NXP_M0_1115
+        LDR     n, = U0LSR
+#endif
+#ifdef NXP_M0_812
+        LDR     n, = UART0_STAT // 40064008h UART0 STAT Line Status Register 
+#endif
+        LDRB    t, [n]
+        TPUSH
+ LTORG
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+
+//=============================== UART0_INIT =================================//
+
+//      UART0_LSR UART0_LSR: ( -- value ) of NXP M0 UART 0 Line Status Register
+//      11xx:
+//      0x40008014 Reset value - 0x60 0b1100000
+//      After Init SEEING 0x96 FIRST
+//
+//      BIT 0 = Receiver Data Ready
+//      BIT 0 WHEN 0 = U0RBR is empty
+//      BIT 0 WHEN 1 = U0RBR contains valid data.
+//
+//      BIT 4 = Break Interrupt BI when 1
+//
+//      BIT 5 = Transmitter Holding Register Empty
+//      BIT 5 WHEN 0 = U0THR contains valid data
+//      BIT 5 WHEN 1 = U0THR is empty.
+//
+//      BIT 6 = Transmitter Empty
+//      BIT 6 WHEN 0 = U0THR and/or the U0TSR contains valid data.
+//      BIT 6 WHEN 1 = U0THR and the U0TSR are empty.
+
+//      81x:
+//      UART0_STAT // 40064008h UART0 STAT Line Status Register 
+
+***** FISH_NXP_M0_IARG.S
+
+//      UART0_RX UART0_RX: ( -- addr ) of UART 0 RX Buffer
+//      This is the serial terminal.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+UART0_LSR_NFA:
+        DC8     0x89
+        DC8     'UART0_LS'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    MYBAUD_NFA
+UART0_LSR:
+        DC32    .+5
+ SECTION .text : CODE (2)
+#if     NXP_M0_11xx | NXP_M0_1115
+        LDR     n, = U0LSR
+#endif
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+UART0_RX_NFA:
+        DC8     0x88
+        DC8     'UART0_R'
+        DC8     'X'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_LSR_NFA
+UART0_RX:
+#if     NXP_M0_11xx | NXP_M0_1115
+        DC32    DOCON, U0RBRTHR
+#endif
+*****
+
+***** FISH_NXP_M0_IAR.s
+#ifdef NXP_M0_812
+        LDR     n, = UART0_STAT // 40064008h UART0 STAT Line Status Register 
+#endif
+        LDRB    t, [n]
+        TPUSH
+ LTORG
+
+
+//      UART0_RX UART0_RX: ( -- addr ) of UART 0 RX Buffer
+//      This is the serial terminal.
+***** FISH_NXP_M0_IARG.S
+#ifdef NXP_M0_812
+        DC32    DOCON, USART0_RXDAT // 40064014h RXDAT USART0
+#endif
+
+//      UART0_TX UART0_TX: ( -- addr ) of UART 0 TX Buffer
+//      This is the serial terminal.
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+UART0_RX_NFA:
+        DC8     0x88
+        DC8     'UART0_R'
+        DC8     'X'+0x80
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+UART0_TX_NFA:
+        DC8     0x88
+        DC8     'UART0_T'
+        DC8     'X'+0x80
+*****
+
+***** FISH_NXP_M0_IAR.s
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_LSR_NFA
+UART0_RX:
+#if     NXP_M0_11xx | NXP_M0_1115
+***** FISH_NXP_M0_IARG.S
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_RX_NFA
+UART0_TX:
+#if     NXP_M0_11xx | NXP_M0_1115
+*****
+
+***** FISH_NXP_M0_IAR.s
+#ifdef NXP_M0_812
+        DC32    DOCON, USART0_RXDAT // 40064014h RXDAT USART0
+#endif
+***** FISH_NXP_M0_IARG.S
+#ifdef NXP_M0_812
+        DC32    DOCON, USART0_TXDAT // 4006401Ch TXDAT USART0
+#endif
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      UART0_TX UART0_TX: ( -- addr ) of UART 0 TX Buffer
+//      This is the serial terminal.
+
+***** FISH_NXP_M0_IARG.S
+
+
+#ifdef XON_XOFF
+//      XOFF XOFF: ( -- ) Send XOFF
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+UART0_TX_NFA:
+        DC8     0x88
+        DC8     'UART0_T'
+        DC8     'X'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_RX_NFA
+UART0_TX:
+#if     NXP_M0_11xx | NXP_M0_1115
+        DC32    DOCON, U0RBRTHR
+#endif
+#ifdef NXP_M0_812
+        DC32    DOCON, USART0_TXDAT // 4006401Ch TXDAT USART0
+#endif
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+XOFF_NFA:
+        DC8     0x84
+        DC8     'XOF'
+        DC8     'F'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_TX_NFA
+XOFF:
+        DC32    .+5
+ SECTION .text : CODE (2)       // Does not incr OUT and wait for line status
+#ifdef IO2TP
+        NEXT
+#else
+        BL      TXRDY_SUBR
+        BL      XOFF_SUBR
+        NEXT
+#endif // #else IO2TP
+//#endif // XON_XOFF after XON:
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+#ifdef XON_XOFF
+//      XOFF XOFF: ( -- ) Send XOFF
+
+***** FISH_NXP_M0_IARG.S
+
+//      XON XON: ( -- ) Send XON
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+XOFF_NFA:
+        DC8     0x84
+        DC8     'XOF'
+        DC8     'F'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    UART0_TX_NFA
+XOFF:
+        DC32    .+5
+ SECTION .text : CODE (2)       // Does not incr OUT and wait for line status
+#ifdef IO2TP
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+XON_NFA:
+        DC8     0x83
+        DC8     'XO'
+        DC8     'N'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    XOFF_NFA
+XON:
+        DC32    .+5
+ SECTION .text : CODE (2)       // Does not incr OUT or wait for line status.
+#ifdef IO2TP
+*****
+
+***** FISH_NXP_M0_IAR.s
+#else
+        BL      TXRDY_SUBR
+        BL      XOFF_SUBR
+        NEXT
+***** FISH_NXP_M0_IARG.S
+#else
+// Required, no 'quick send'
+        BL      TXRDY_SUBR
+        BL      XON_SUBR
+        NEXT
+*****
+
+***** FISH_NXP_M0_IAR.s
+#endif // #else IO2TP
+//#endif // XON_XOFF after XON:
+
+
+//      XON XON: ( -- ) Send XON
+
+***** FISH_NXP_M0_IARG.S
+#endif // #else IO2TP
+#endif // XON_XOFF
+
+//---------------- EMIT KEY ?KEY CR SECTION ------------------------------
+
+//      SPACES SPACES:  ( n -- )
+//      Transmit n ascii blanks (0x20) to the output device.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+XON_NFA:
+        DC8     0x83
+        DC8     'XO'
+        DC8     'N'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    XOFF_NFA
+XON:
+        DC32    .+5
+ SECTION .text : CODE (2)       // Does not incr OUT or wait for line status.
+#ifdef IO2TP
+        NEXT
+#else
+// Required, no 'quick send'
+        BL      TXRDY_SUBR
+        BL      XON_SUBR
+        NEXT
+#endif // #else IO2TP
+#endif // XON_XOFF
+
+//---------------- EMIT KEY ?KEY CR SECTION ------------------------------
+
+//      SPACES SPACES:  ( n -- )
+//      Transmit n ascii blanks (0x20) to the output device.
+
+ SECTION .text : CONST (2)
+SPACES_NFA:
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+SPACES_NFA:
+*****
+
+***** FISH_NXP_M0_IAR.s
+        DC32    DOCOL
+#ifdef XON_XOFF
+// EXEC SETS XOFF SO UNDO IT
+        DC32    XON     // USER called or compiled only!
+// TEST XON_XOFF TEMINAL COMPLIANCE WITH KEY .S <CR> Send Break to bypass!
+//        DC32    XOFF
+#endif
+        DC32    KEY
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+        DC32    DOCOL
+        DC32    XON     // EXEC SETS XOFF SO UNDO IT
+        DC32    KEY     // TE GET KEY!
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//:NONAME KEY KEY:      ( -- CH ) 
+// This is the FISH System KEY compiled in the FISH RM
+// KEY_INTERPRETED_ENTRY is the user interpreted/compiled hi-level version
+// That issues XON  before calling this KEY
+KEY:
+***** FISH_NXP_M0_IARG.S
+
+//:NONAME KEY KEY:      ( -- CH ) 0-7Fh
+KEY:
+*****
+
+***** FISH_NXP_M0_IAR.s
+//!!!!!fixx in nxp
+//      WC_FISH_IO_NFA = FISH IO: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//!!!!!fixx in nxp
+//      WC_FISH_IO_NFA = NUMBERS CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_IRQ_NFA = INTERRUPTS: CATEGORY
+
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_IRQ_NFA = NUMBERS CATEGORY
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//-------------------------- PROMPT VECTOR SECTION -----------------------------
+
+//      POFF ( -- )   Set NULL$ address in PROMPT to zero so quit does CR only.
+
+***** FISH_NXP_M0_IARG.S
+
+//-------------------------- DOTDICTSPACE SECTION ------------------------------
+
+//      .DS DOTDICTSPACE:       ( n -- )
+//      Prints number of bytes availble in dictionary in DECIMAL using DOT,
+//      not affecting Base in the system
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+POFF_NFA:
+        DC8     0x84
+        DC8     'POF'
+        DC8     'F'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOTDICTSPACE_NFA:
+        DC8     0x83
+        DC8     '.D'
+        DC8     'S'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+*****
+
+***** FISH_NXP_M0_IAR.s
+        DC32    FLASH_FORGET_NFA
+POFF:
+        DC32    DOCOL
+        DC32    STRVA, 0, PROMPT
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+        DC32    FLASH_FORGET_NFA
+DOTDICTSPACE:
+        DC32    DOCOL
+        DC32    DICTSPACE
+#ifdef SRM
+        DC32    BASE_TO_R12     // Save current BASE
+        DC32    DECIMAL, DOT
+        DC32    BASE_FROM_R12   // Restore BASE
+#else
+        DC32    DOTDEC          // SAVES BASE
+#endif  // SRM
+        DC32    LIT, msg_dictspace
+        DC32    NULLSTRLEN, TYPE
+#ifdef IO2TP
+          DC32 NOOP
+        DC32    CLRPAD  // Resets OUT
+#endif
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      PON ( -- )   Set NULL$ address in PROMPT to msg_MY_OK
+
+***** FISH_NXP_M0_IARG.S
+
+
+//-------------------------- DOTVARSPACE SECTION -------------------------------
+
+//      .VS DOTVARSPACE:        ( n -- )
+//      Prints number of bytes availble in RAM VAR SPACE in DECIMAL using DOT,
+//      not affecting Base in the system.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+PON_NFA:
+        DC8     0x83
+        DC8     'PO'
+        DC8     'N'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    POFF_NFA
+PON:
+        DC32    DOCOL
+        DC32    STRVA, msg_MY_OK, PROMPT
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DOTVARSPACE_NFA:
+        DC8     0x83
+        DC8     '.V'
+        DC8     'S'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTDICTSPACE_NFA
+DOTVARSPACE:
+        DC32    DOCOL
+        DC32    VARSPACE
+        DC32    FOUR, SLASH
+#ifdef SRM
+        DC32    BASE_TO_R12     // Save current BASE
+        DC32    DECIMAL, DOT
+        DC32    BASE_FROM_R12   // Restore BASE
+#else
+        DC32    DOTDEC          // SAVES BASE
+#endif  // SRM
+        DC32    LIT, msg_uvspace
+        DC32    NULLSTRLEN, TYPE
+#ifdef IO2TP
+ DC32 NOOP
+        DC32    CLRPAD  // Resets OUT
+#endif
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      P ( -- addr )   Address of PROMPT, contains 0 or NULL$ address.
+
+***** FISH_NXP_M0_IARG.S
+
+
+//      DUMP DUMP:      ( addr n -- )
+//      Print adrr and n lines of 4 columns of memory values in hexadecimal.
+//      Address must be even and a multiple of 4 else error message issued.
+//      QKEY used to abort dump.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+P_NFA:
+        DC8     0x81
+        DC8     'P'+0x80
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DUMP_NFA:
+        DC8     0x84
+        DC8     'DUM'
+        DC8     'P'+0x80
+*****
+
+***** FISH_NXP_M0_IAR.s
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    PON_NFA
+P:
+        DC32    DOCON, PROMPT
+
+
+//-------------------------- DOTDICTSPACE SECTION ------------------------------
+
+//      .DS DOTDICTSPACE:       ( n -- )
+//      Prints number of bytes availble in dictionary in DECIMAL using DOT,
+//      not affecting Base in the system
+
+ SECTION .text : CONST (2)
+DOTDICTSPACE_NFA:
+        DC8     0x83
+        DC8     '.D'
+        DC8     'S'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+//      DC32    FLASH_FORGET_NFA
+        DC32    P_NFA
+DOTDICTSPACE:
+        DC32    DOCOL
+        DC32    DICTSPACE
+#ifdef SRM
+        DC32    BASE_TO_R12     // Save current BASE
+        DC32    DECIMAL, DOT
+        DC32    BASE_FROM_R12   // Restore BASE
+#else
+        DC32    DOTDEC          // SAVES BASE
+#endif  // SRM
+        DC32    LIT, msg_dictspace
+        DC32    NULLSTRLEN, TYPE
+#ifdef IO2TP
+***** FISH_NXP_M0_IARG.S
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTVARSPACE_NFA
+DUMP:
+        DC32    DOCOL
+
+        DC32    OVER, QALIGNED  // ( -- addr n )
+// DON'T SAVE BASE UNTIL AFTER ALIGNED TEST
+        DC32    BASE_TO_R12     // Save current BASE
+        DC32    HEX
+        DC32    ZERO, XDO
+DUMP_ADDR_LINE:
+        DC32    CR
+        DC32    DUP, LIT, 10, DOTRU     // Print addr in Field
+        DC32    FOUR, ZERO, XDO         // Four colum loop
+DUMP_EACH_LOC:
+        DC32    DUP, AT
+// Little Endian means addresses will print correctly
+// but to see character strings REVW is needed
+// but the addresses are scrambled!
+//        DC32    REVW                    // Reverse bytes in word
+        DC32    LIT, 14, DOTRU          // Diplay in Field
+        DC32    FOURP
+        DC32    XLOOP
+        DC32    DUMP_EACH_LOC-.
+
+#ifdef IO2TP
+*****
+
+***** FISH_NXP_M0_IAR.s
+#endif
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+#endif
+        DC32    QKEY
+        DC32    ZBRAN
+        DC32     DUMP_CONT-.
+        DC32    LEAVE
+DUMP_CONT:
+        DC32    XLOOP
+        DC32    DUMP_ADDR_LINE-.
+
+        DC32    DROP, CR
+        DC32    BASE_FROM_R12   // Restore BASE
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//-------------------------- DOTVARSPACE SECTION -------------------------------
+
+//      .VS DOTVARSPACE:        ( n -- )
+//      Prints number of bytes availble in RAM VAR SPACE in DECIMAL using DOT,
+//      not affecting Base in the system.
+
+***** FISH_NXP_M0_IARG.S
+
+//      VBASE VBASE:    ( -- addr )
+//       Return base addr of VAR's .
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DOTVARSPACE_NFA:
+        DC8     0x83
+        DC8     '.V'
+        DC8     'S'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTDICTSPACE_NFA
+DOTVARSPACE:
+        DC32    DOCOL
+        DC32    VARSPACE
+        DC32    FOUR, SLASH
+#ifdef SRM
+        DC32    BASE_TO_R12     // Save current BASE
+        DC32    DECIMAL, DOT
+        DC32    BASE_FROM_R12   // Restore BASE
+#else
+        DC32    DOTDEC          // SAVES BASE
+#endif  // SRM
+        DC32    LIT, msg_uvspace
+        DC32    NULLSTRLEN, TYPE
+#ifdef IO2TP
+ DC32 NOOP
+        DC32    CLRPAD  // Resets OUT
+#endif
+        DC32    SEMIS
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+VBASE_NFA:
+        DC8     0x85
+        DC8     'VBAS'
+        DC8     'E'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DUMP_NFA
+VBASE:
+        DC32    DOCON,  RAMVARSPACE_START
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      DUMP DUMP:      ( addr n -- )
+//      Print adrr and n lines of 4 columns of memory values in hexadecimal.
+//      Address must be even and a multiple of 4 else error message issued.
+//      QKEY used to abort dump.
+
+***** FISH_NXP_M0_IARG.S
+
+//      DBASE DBASE:    ( -- addr )
+//      Return base addr of the dictionary.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DUMP_NFA:
+        DC8     0x84
+        DC8     'DUM'
+        DC8     'P'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DOTVARSPACE_NFA
+DUMP:
+        DC32    DOCOL
+
+        DC32    OVER, QALIGNED  // ( -- addr n )
+// DON'T SAVE BASE UNTIL AFTER ALIGNED TEST
+        DC32    BASE_TO_R12     // Save current BASE
+        DC32    HEX
+        DC32    ZERO, XDO
+DUMP_ADDR_LINE:
+        DC32    CR
+        DC32    DUP, LIT, 10, DOTRU     // Print addr in Field
+        DC32    FOUR, ZERO, XDO         // Four colum loop
+DUMP_EACH_LOC:
+        DC32    DUP, AT
+// Little Endian means addresses will print correctly
+// but to see character strings REVW is needed
+// but the addresses are scrambled!
+//        DC32    REVW                    // Reverse bytes in word
+        DC32    LIT, 14, DOTRU          // Diplay in Field
+        DC32    FOURP
+        DC32    XLOOP
+        DC32    DUMP_EACH_LOC-.
+
+#ifdef IO2TP
+          DC32 NOOP
+        DC32    CLRPAD  // Resets OUT
+#endif
+        DC32    QKEY
+        DC32    ZBRAN
+        DC32     DUMP_CONT-.
+        DC32    LEAVE
+DUMP_CONT:
+        DC32    XLOOP
+        DC32    DUMP_ADDR_LINE-.
+
+        DC32    DROP, CR
+        DC32    BASE_FROM_R12   // Restore BASE
+        DC32    SEMIS
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+DBASE_NFA:
+        DC8     0x85
+        DC8     'DBAS'
+        DC8     'E'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    VBASE_NFA
+DBASE:
+        DC32    DOCON,  ORIG
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      VBASE VBASE:    ( -- addr )
+//       Return base addr of VAR's .
+
+***** FISH_NXP_M0_IARG.S
+
+//      RBASE RBASE:    ( -- addr )
+//      Return base addr of RAM.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+VBASE_NFA:
+        DC8     0x85
+        DC8     'VBAS'
+        DC8     'E'+0x80
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+RBASE_NFA:
+        DC8     0x85
+        DC8     'RBAS'
+        DC8     'E'+0x80
+*****
+
+***** FISH_NXP_M0_IAR.s
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DUMP_NFA
+VBASE:
+        DC32    DOCON,  RAMVARSPACE_START
+
+***** FISH_NXP_M0_IARG.S
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DBASE_NFA
+RBASE:
+        DC32    DOCON,  RAM_START
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      DBASE DBASE:    ( -- addr )
+//      Return base addr of the dictionary.
+
+***** FISH_NXP_M0_IARG.S
+
+//      CLS CLS:        ( -- )
+//      Clear serial terminal screen using a formfeed character
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+DBASE_NFA:
+        DC8     0x85
+        DC8     'DBAS'
+        DC8     'E'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    VBASE_NFA
+DBASE:
+        DC32    DOCON,  ORIG
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+CLS_NFA:
+        DC8     0x83
+        DC8     'CL'
+        DC8     'S'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    RBASE_NFA
+CLS:
+        DC32    DOCOL
+        DC32    PDOTQ
+        DC8     4
+        DC8     0x1B, '['       // ESC[ = ANSI VT100 ESC SETUP
+        DC8     '2J'            // Clearscreen
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    PDOTQ
+        DC8     4
+        DC8     0x1B, '['       // ESC[ = ANSI VT00 ESC SETUP
+        DC8     ';H'            // CURSORHOME ( upper left corner )
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    CR              // Reset OUT
+        DC32    SEMIS
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      RBASE RBASE:    ( -- addr )
+//      Return base addr of RAM.
+
+***** FISH_NXP_M0_IARG.S
+
+//      ( PAREN:        ( -- ) IMMEDIATE
+//      Used in the form:
+//              ( CCcc )
+//      Ignore comments within parenthesis. A right parenthesis ends comment.
+//      The comments may be multi-line but a space or tab is required
+//      for any line that is otherwise empty for formatting purposes,
+//      else a comment error will be printed. May occur during execution or in a
+//      colon-definition. A blank after the leading parenthesis is required.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+RBASE_NFA:
+        DC8     0x85
+        DC8     'RBAS'
+        DC8     'E'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    DBASE_NFA
+RBASE:
+        DC32    DOCON,  RAM_START
+
+
+//      CLS CLS:        ( -- )
+//      Clear serial terminal screen using a formfeed character
+
+ SECTION .text : CONST (2)
+CLS_NFA:
+        DC8     0x83
+        DC8     'CL'
+        DC8     'S'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    RBASE_NFA
+CLS:
+        DC32    DOCOL
+        DC32    PDOTQ
+        DC8     4
+        DC8     0x1B, '['       // ESC[ = ANSI VT100 ESC SETUP
+        DC8     '2J'            // Clearscreen
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    PDOTQ
+        DC8     4
+        DC8     0x1B, '['       // ESC[ = ANSI VT00 ESC SETUP
+        DC8     ';H'            // CURSORHOME ( upper left corner )
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    CR              // Reset OUT
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+PAREN_NFA:
+        DC8     0x0C1
+        DC8     '('+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    CLS_NFA
+PAREN:
+// Slow Single line comment
+//      DC32    DOCOL, LIT, ')', WORD, SEMIS
+        DC32    DOCOL
+PML_LOOP:
+        DC32    LIT, ')'
+        DC32    TIB_CHAR_SCAN   // ( c -- f )
+//
+        DC32    ZEQU            // If null
+        DC32    ZBRAN           // found fall thru
+        DC32      PE_DONE-.     // else were done
+
+// GET ANOTHER LINE
+        DC32    CR
+        DC32    QUERY
+//  AND IF ONLY CR (null) ERR
+//        DC32    TIB_SV, CAT
+        DC32    LIT, TIB+1, CAT // PAST COUNT BYTE
+        DC32    ZBRAN
+        DC32      PAREN_ERR-.
+
+//  If closing paren not in this line LOOP
+        DC32    BRAN
+        DC32      PML_LOOP-.
+
+PE_DONE:
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+
+//      ( PAREN:        ( -- ) IMMEDIATE
+//      Used in the form:
+//              ( CCcc )
+//      Ignore comments within parenthesis. A right parenthesis ends comment.
+//      The comments may be multi-line but a space or tab is required
+//      for any line that is otherwise empty for formatting purposes,
+//      else a comment error will be printed. May occur during execution or in a
+//      colon-definition. A blank after the leading parenthesis is required.
+
+***** FISH_NXP_M0_IARG.S
+
+PAREN_ERR:
+        DC32    LIT, msg_paren_err
+        DC32    NULLSTRLEN, TYPE        // Passed in null string
+        DC32    SEMIS
+
+
+//      BACKSLASH BACKSLASH:    ( --  )
+//      After a trailing space treat the rest of the line as a comment.
+//      By setting a null terminator in TIB
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+PAREN_NFA:
+        DC8     0x0C1
+        DC8     '('+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    CLS_NFA
+PAREN:
+// Slow Single line comment
+//      DC32    DOCOL, LIT, ')', WORD, SEMIS
+        DC32    DOCOL
+PML_LOOP:
+        DC32    LIT, ')'
+        DC32    TIB_CHAR_SCAN   // ( c -- f )
+//
+        DC32    ZEQU            // If null
+        DC32    ZBRAN           // found fall thru
+        DC32      PE_DONE-.     // else were done
+
+// GET ANOTHER LINE
+        DC32    CR
+        DC32    QUERY
+//  AND IF ONLY CR (null) ERR
+//        DC32    TIB_SV, CAT
+        DC32    LIT, TIB+1, CAT // PAST COUNT BYTE
+        DC32    ZBRAN
+        DC32      PAREN_ERR-.
+
+//  If closing paren not in this line LOOP
+        DC32    BRAN
+        DC32      PML_LOOP-.
+
+PE_DONE:
+        DC32    SEMIS
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+BACKSLASH_NFA:
+        DC8     0x0C1
+        DC8     '\\'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    PAREN_NFA
+BACKSLASH:
+        DC32    DOCOL
+        DC32    ZERO, TIB_SV, IN_SV, AT, PLUS, CSTORE
+        DC32    SEMIS
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+PAREN_ERR:
+        DC32    LIT, msg_paren_err
+        DC32    NULLSTRLEN, TYPE        // Passed in null string
+        DC32    SEMIS
+
+
+//      BACKSLASH BACKSLASH:    ( --  )
+//      After a trailing space treat the rest of the line as a comment.
+//      By setting a null terminator in TIB
+
+***** FISH_NXP_M0_IARG.S
+
+
+//      SYSCLK SYSCLK:  ( -- value )
+//      Returns system clock value in Hz, i.e. 48000000 = 48Mhz.
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+ SECTION .text : CONST (2)
+BACKSLASH_NFA:
+        DC8     0x0C1
+        DC8     '\\'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    PAREN_NFA
+BACKSLASH:
+        DC32    DOCOL
+        DC32    ZERO, TIB_SV, IN_SV, AT, PLUS, CSTORE
+        DC32    SEMIS
+
+***** FISH_NXP_M0_IARG.S
+ SECTION .text : CONST (2)
+SYSCLK_NFA:
+        DC8     0x86
+        DC8     'SYSCL'
+        DC8     'K'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    BACKSLASH_NFA
+SYSCLK:
+        DC32    .+5
+ SECTION .text : CODE (2)
+        LDR     n, = SYSCLOCK   // SystemCoreClock
+        LDR     t, [n]
+        TPUSH   // Push -- t
+ LTORG   //Always outside of code, else data in words
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      SYSCLK SYSCLK:  ( -- value )
+//      Returns system clock value in Hz, i.e. 48000000 = 48Mhz.
+
+ SECTION .text : CONST (2)
+SYSCLK_NFA:
+        DC8     0x86
+        DC8     'SYSCL'
+        DC8     'K'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    BACKSLASH_NFA
+SYSCLK:
+        DC32    .+5
+ SECTION .text : CODE (2)
+        LDR     n, = SYSCLOCK   // SystemCoreClock
+        LDR     t, [n]
+        TPUSH   // Push -- t
+ LTORG   //Always outside of code, else data in words
+
+***** FISH_NXP_M0_IARG.S
+
+//      STCTR   ( -- addr ) SYSTICK Interrupt increments this with 32but wrap.
+//      STI_ON: 7 E000E010h !  STI_OFF: 5 E000E010h ! E000E010h @ .H
+ SECTION .text : CONST (2)
+STCTR_NFA:
+        DC8     0x85
+        DC8     'STCT'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    SYSCLK_NFA
+STCTR:
+        DC32    DOCON, STICKER
+
+*****
+
+***** FISH_NXP_M0_IAR.s
+
+//      STCTR   ( -- addr ) SYSTICK Interrupt increments this with 32but wrap.
+//      STI_ON: 7 E000E010h !  STI_OFF: 5 E000E010h ! E000E010h @ .H
+ SECTION .text : CONST (2)
+STCTR_NFA:
+        DC8     0x85
+        DC8     'STCT'
+        DC8     'R'+0x80
+ ALIGNROM 2,0xFFFFFFFF
+        DC32    SYSCLK_NFA
+STCTR:
+        DC32    DOCON, STICKER
+
+
+//      DELAY ( n value -- ) 7 E000E010h !   5 E000E010h !
+***** FISH_NXP_M0_IARG.S
+
+//      DELAY ( n value -- ) 7 E000E010h !   5 E000E010h !
+*****
+
+***** FISH_NXP_M0_IAR.s
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_FISH_PubRel: = FISH Reference Model: CATEGORY
+ SECTION .text : CONST (2)
+***** FISH_NXP_M0_IARG.S
+//NOEXEC HEADERFORWORDCATEGORIES
+//      WC_FISH_PubRel: = FISH PubRel SYSTEM CATEGORY
+ SECTION .text : CONST (2)
+*****
+

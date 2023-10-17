@@ -1,0 +1,77 @@
+FISH QUICK TUTORIAL 2013 CWPJR
+
+To take good advantage of FISH, please understand this runs in a
+smaller embedded ARM CORTEX M0 environment. This typically means 4k of ram.
+
+XXXX:	        Indicates a topic, note or section header.
+
+	Words in all caps (except FISH) are WORDS in FISH.
+	( Text ) are comments here and in FISH.
+	[ WORD ] Discusses a particular WORD in FISH.
+	If tried in FISH terminal implies pressing enter ( CR ) last to process.
+	
+	FISH syntax is simple; space seperates words and numbers.
+	Processing of the words and numbers begins after CR entered.
+	
+[ BASE ]
+	FISH boots in HEX. Many numbers in programming are best expreseed in HEX.
+	[ . ] prints the 32bit number on the stack in the current base.
+	HEX, DECIMAL and BIN set the base used in numeric input and output.
+	For example setting the desired baud-rate is best done in decimal.
+        [ DECIMAL 9600 MYBAUD ] ( remember you are in decimal now! )
+	See also ( .D .H .B and other .words in the glossary )
+
+RESET:
+	FISH may or may not issue a SIGNON message when powered up.
+	Enter CR and expect OK prompt thru serial terminal at default baudrate.
+	Now that FISH is powered up there are only 3 ways to see the SIGNON message.
+	BYE and COLD reboot FISH if you use them and print out the SIGNON message.
+	If you end up feeding FISH garbage that violates the hardware rules
+	a Hard Fault Reset will ooccur and you will see 2 special characters,
+	then 2 CR's and then the SIGNON message.
+	Try this: [ 1 1 ! ]
+	
+	FISH has a default baudrate. It can be changed with the words
+	MYBAUD, then INIT_UART0. [ DECIMAL 9600 MYBAUD INIT_UART0 HEX ]
+	Now the new baud rate will be preserved during reset.
+
+( Writing FISH software )
+	Test your work interactively in the terminal screen.
+	Copy good work and paste it to text files.
+	The terminal program can now be used to download your good code from the text file.
+	It is confusing to see a text file download and process errors in buggy code.
+	Depending on what broke in the download a Hard Fault Reset may be triggered.
+	If so you'll have to start the downloads again.
+	Thats why I advise testing in the terminal and only downloading know good code.
+
+[ .DS ]:
+	This WORD will show you how much dictionairy space is available.
+	No matter what base you are in it will leave that base intact while
+	displaying the available space in DECIMAL.
+	
+[ .VS ]:
+	This WORD will show you how much RAM Variable space is available.
+	[ VAR TESTVAR ] takes no argumant and allocates 4 bytes.
+	No matter what base you are in it will leave that base intact while
+	displaying the available space in DECIMAL.
+
+( Managing your Dictionary of WORDS )
+	Try this [ WORDS ]. You'll see a list of words in the dictionary.
+        MYWORDS will list only words you have added or saved to flash.
+	Use .DS and .VS to monitor availavble space for Words and Var's.
+	
+FORGET:
+	[ FORGET WORDname ] removes all Words after WORDname ( including wordname )
+	and prints out the HEX address where next new Word will be added.
+
+FLASH_FORGET:
+	[ FLASH_FORGET ] removes all Words saved in flash.
+
+( MATH )
+	FISH does math like a HP calculator of old. Numbers are put on The Stack.
+	Math operators then use the numbers on The Stack and replace then with results.
+	See +. -. /, /MOD to start. All are 32 bit integer operations.
+	64- Bit operators are available. See M/MOD, D+, D. etc.
+	NOTE: 64 bit representation is used internally a lot,
+	even for 32 bit Words like [ . ].
+

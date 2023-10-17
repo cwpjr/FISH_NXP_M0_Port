@@ -1,0 +1,52 @@
+Building configuration: FISH_M0 - NXP_1115_64X8_PUBREL 
+Updating build tree... 
+ 
+Linking 
+ilinkarm.exe C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj\cstartup_M.o  
+C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj\FISH_NXP_M0_IAR.o C:\ 
+Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj\FISH_NXP_M0_main.o -o C:\ 
+Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out.tmp --map C:\Users\cwpjr\Dropbox\CWP\FISH IAR\ 
+FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\List\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.map  
+--config C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\FISH_M0.icf --entry __iar_program_start --inline  
+--vfe 
+ 
+   IAR ELF Linker V7.30.1.7746/W32 for ARM 
+   Copyright 2007-2014 IAR Systems AB. 
+ 
+  14 666 bytes of readonly  code memory 
+      64 bytes of readonly  data memory 
+   4 781 bytes of readwrite data memory 
+ 
+Errors: none 
+Warnings: none 
+ 
+Link time:   0.06 (CPU)   0.05 (elapsed) 
+ielftool --checksum __vector_table+0x1c:4,sum32:2;__vector_table-__vector_table+0x1B --verbose C:\Users\cwpjr\ 
+Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out.tmp C:\Users\cwpjr\Dropbox\CWP\FISH IAR\ 
+FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out 
+   IAR ELF Tool V9.17.0.113 [BUILT at IAR] 
+   Copyright 2007-2014 IAR Systems AB. 
+Loading C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out.tmp 
+Calculated the checksum for 0x1c (__vector_table + 1c): 0xeffec526, the checksummed addresses were: 
+  0x0 - 0x1b 
+Saving ELF file to C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out 
+ 
+ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out 
+Converting 
+ielftool.exe --ihex --verbose C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\ 
+Exe\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out C:\Users\cwpjr\Dropbox\CWP\FISH IAR\ 
+FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.hex 
+   IAR ELF Tool V9.17.0.113 [BUILT at IAR] 
+   Copyright 2007-2014 IAR Systems AB. 
+Loading C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out 
+Saving ihex file to C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\ 
+FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.hex 
+ 
+Total number of errors: 0 
+Total number of warnings: 0 

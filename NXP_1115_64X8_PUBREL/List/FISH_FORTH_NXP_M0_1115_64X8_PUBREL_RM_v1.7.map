@@ -1,0 +1,136 @@
+###############################################################################
+#
+# IAR ELF Linker V7.30.1.7746/W32 for ARM                 04/Sep/2015  16:47:01
+# Copyright 2007-2014 IAR Systems AB.
+#
+#    Output file  =  
+#        C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out.tmp
+#    Map file     =  
+#        C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\List\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.map
+#    Command line =  
+#        "C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj\cstartup_M.o"
+#        "C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj\FISH_NXP_M0_IAR.o"
+#        "C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj\FISH_NXP_M0_main.o" -o
+#        "C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Exe\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.out.tmp"
+#        --map "C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\List\FISH_FORTH_NXP_M0_1115_64X8_PUBREL_RM_v1.7.map"
+#        --config "C:\Users\cwpjr\Dropbox\CWP\FISH
+#        IAR\FISH_NXP_M0_Port\FISH_M0.icf" --entry __iar_program_start --inline
+#        --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00000000 { ro section .intvec };
+"P1":  place in [from 0x00000000 to 0x00007fff] { ro };
+"P2":  place in [from 0x10000000 to 0x10001fff] { rw, block CSTACK, block HEAP };
+
+  Section          Kind        Address    Size  Object
+  -------          ----        -------    ----  ------
+"A1":                                     0x40
+  .intvec          const    0x00000000    0x40  cstartup_M.o [1]
+                          - 0x00000040    0x40
+
+"P1":                                   0x3b96
+  .text            ro code  0x00000040  0x3a80  FISH_NXP_M0_IAR.o [1]
+  .text            ro code  0x00003ac0    0x24  FISH_NXP_M0_main.o [1]
+  .text            ro code  0x00003ae4    0xa8  I64DivMod.o [4]
+  .text            ro code  0x00003b8c    0x4a  cstartup_M.o [1]
+                          - 0x00003bd6  0x3b96
+
+"P2":                                   0x12c0
+  FISH_Ram_MemMap  uninit   0x10000000  0x11c0  FISH_NXP_M0_IAR.o [1]
+  CSTACK                    0x100011c0   0x100  <Block>
+    CSTACK         uninit   0x100011c0   0x100  <Block tail>
+                          - 0x100012c0  0x12c0
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module              ro code  ro data  rw data
+    ------              -------  -------  -------
+C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj: [1]
+    FISH_NXP_M0_IAR.o    14 976             4 544
+    FISH_NXP_M0_main.o       36
+    cstartup_M.o             74       64
+    ---------------------------------------------
+    Total:               15 086       64    4 544
+
+command line: [2]
+    ---------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    ---------------------------------------------
+    Total:
+
+rt6M_tl.a: [4]
+    I64DivMod.o             168
+    ---------------------------------------------
+    Total:                  168
+
+    Linker created                            256
+-------------------------------------------------
+    Grand Total:         15 254       64    4 800
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                    Address  Size  Type      Object
+-----                    -------  ----  ----      ------
+BusFault_Handler      0x00003bb9   0x4  Code  Wk  cstartup_M.o [1]
+CSTACK$$Base          0x100011c0         --   Gb  - Linker created -
+CSTACK$$Limit         0x100012c0         --   Gb  - Linker created -
+DebugMon_Handler      0x00003bc5   0x4  Code  Wk  cstartup_M.o [1]
+FM0_COLD              0x00000951        Code  Gb  FISH_NXP_M0_IAR.o [1]
+FM0_SYSTICK_ISR       0x000009c9        Code  Gb  FISH_NXP_M0_IAR.o [1]
+HardFault_Handler     0x00003bad   0x8  Code  Wk  cstartup_M.o [1]
+MemManage_Handler     0x00003bb5   0x4  Code  Wk  cstartup_M.o [1]
+NMI_Handler           0x00003ba9   0x4  Code  Wk  cstartup_M.o [1]
+NVIC_SystemReset      0x00003b8d  0x12  Code  Lc  cstartup_M.o [1]
+PendSV_Handler        0x00003bc9   0x4  Code  Wk  cstartup_M.o [1]
+Region$$Table$$Base   0x00000000         --   Gb  - Linker created -
+Region$$Table$$Limit  0x00000000         --   Gb  - Linker created -
+SVC_Handler           0x00003bc1   0x4  Code  Wk  cstartup_M.o [1]
+SysTick_Handler       0x00003bcd   0x8  Code  Wk  cstartup_M.o [1]
+UsageFault_Handler    0x00003bbd   0x4  Code  Wk  cstartup_M.o [1]
+__aeabi_ldivmod       0x00003ae5        Code  Gb  I64DivMod.o [4]
+__aeabi_uldivmod      0x00003b23        Code  Gb  I64DivMod.o [4]
+__iar_program_start   0x00003bd5   0x2  Code  Gb  cstartup_M.o [1]
+__vector_table        0x00000000  0x40  Data  Gb  cstartup_M.o [1]
+c_64by32div           0x00003ac1  0x24  Code  Gb  FISH_NXP_M0_main.o [1]
+
+
+[1] = C:\Users\cwpjr\Dropbox\CWP\FISH IAR\FISH_NXP_M0_Port\NXP_1115_64X8_PUBREL\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+
+  15 254 bytes of readonly  code memory
+      64 bytes of readonly  data memory
+   4 800 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

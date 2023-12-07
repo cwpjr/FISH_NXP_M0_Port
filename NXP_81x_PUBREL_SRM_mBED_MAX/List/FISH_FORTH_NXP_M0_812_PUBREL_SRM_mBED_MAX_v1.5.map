@@ -1,0 +1,175 @@
+###############################################################################
+#                                                                             #
+# IAR ELF Linker V6.60.1.5097/W32 for ARM               14/Aug/2014  11:36:47 #
+# Copyright 2007-2013 IAR Systems AB.                                         #
+#                                                                             #
+#    Output file  =  C:\Documents and Settings\cw\AllForth\AllFISH\FISH       #
+#                    IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Exe\FIS #
+#                    H_FORTH_NXP_M0_812_PUBREL_SRM_mBED_MAX_v1.5.out.tmp      #
+#    Map file     =  C:\Documents and Settings\cw\AllForth\AllFISH\FISH       #
+#                    IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\List\FI #
+#                    SH_FORTH_NXP_M0_812_PUBREL_SRM_mBED_MAX_v1.5.map         #
+#    Command line =  "C:\Documents and Settings\cw\AllForth\AllFISH\FISH      #
+#                    IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Obj\cst #
+#                    artup_M.o" "C:\Documents and                             #
+#                    Settings\cw\AllForth\AllFISH\FISH                        #
+#                    IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Obj\FIS #
+#                    H_NXP_M0_IAR.o" "C:\Documents and                        #
+#                    Settings\cw\AllForth\AllFISH\FISH                        #
+#                    IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Obj\FIS #
+#                    H_NXP_M0_main.o" -o "C:\Documents and                    #
+#                    Settings\cw\AllForth\AllFISH\FISH                        #
+#                    IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Exe\FIS #
+#                    H_FORTH_NXP_M0_812_PUBREL_SRM_mBED_MAX_v1.5.out.tmp"     #
+#                    --map "C:\Documents and Settings\cw\AllForth\AllFISH\FIS #
+#                    H IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\List\ #
+#                    FISH_FORTH_NXP_M0_812_PUBREL_SRM_mBED_MAX_v1.5.map"      #
+#                    --config "C:\Documents and Settings\cw\AllForth\AllFISH\ #
+#                    FISH IAR\FISH_NXP_M0_Port\FISH_M0.icf" --entry           #
+#                    __iar_program_start --inline --vfe                       #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00000000 { ro section .intvec };
+"P1":  place in [from 0x00000000 to 0x00007fff] { ro };
+"P2":  place in [from 0x10000000 to 0x10001fe0] { rw, block CSTACK, block HEAP };
+
+  Section            Kind        Address    Size  Object
+  -------            ----        -------    ----  ------
+"A1":                                       0x40
+  .intvec            const    0x00000000    0x40  cstartup_M.o [1]
+                            - 0x00000040    0x40
+
+"P1":                                     0x37b0
+  .text              ro code  0x00000040  0x351c  FISH_NXP_M0_IAR.o [1]
+  .text              ro code  0x0000355c    0x24  FISH_NXP_M0_main.o [1]
+  .text              ro code  0x00003580    0xa8  I64DivMod.o [4]
+  .text              ro code  0x00003628    0xda  packbits_init.o [4]
+  .text              ro code  0x00003702     0xa  abort.o [3]
+  .text              ro code  0x0000370c     0xc  XXexit.o [4]
+  .text              ro code  0x00003718    0x4a  cstartup_M.o [1]
+  .text              ro code  0x00003764    0x28  data_init.o [4]
+  .iar.init_table    const    0x0000378c    0x1c  - Linker created -
+  .rodata            const    0x000037a8     0x0  packbits_init.o [4]
+  Initializer bytes  ro data  0x000037a8    0x48  <for P2 s0>
+                            - 0x000037f0  0x37b0
+
+"P2", part 1 of 2:                         0xc38
+  P2 s0                       0x10000000   0xc35  <Init block>
+    .bss             inited   0x10000000   0xc35  FISH_NXP_M0_IAR.o [1]
+                            - 0x10000c35   0xc35
+
+"P2", part 2 of 2:                          0x40
+  CSTACK                      0x10000c38    0x40  <Block>
+    CSTACK           uninit   0x10000c38    0x40  <Block tail>
+                            - 0x10000c78    0x40
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Copy/packbits (__iar_packbits_init3)
+    1 source range, total size 0x48 (2% of destination):
+          0x000037a8   0x48
+    1 destination range, total size 0xc35:
+          0x10000000  0xc35
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module              ro code  ro data  rw data
+    ------              -------  -------  -------
+C:\Documents and Settings\cw\AllForth\AllFISH\FISH IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Obj: [1]
+    FISH_NXP_M0_IAR.o    13 596       72    3 125
+    FISH_NXP_M0_main.o       36
+    cstartup_M.o             74       64
+    ---------------------------------------------
+    Total:               13 706      136    3 125
+
+command line: [2]
+    ---------------------------------------------
+    Total:
+
+dl6M_tln.a: [3]
+    abort.o                  10
+    ---------------------------------------------
+    Total:                   10
+
+rt6M_tl.a: [4]
+    I64DivMod.o             168
+    XXexit.o                 12
+    data_init.o              40
+    packbits_init.o         218
+    ---------------------------------------------
+    Total:                  438
+
+    Gaps                      2
+    Linker created                    28       64
+-------------------------------------------------
+    Grand Total:         14 156      164    3 189
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                    Address  Size  Type      Object
+-----                    -------  ----  ----      ------
+BusFault_Handler      0x00003745   0x4  Code  Wk  cstartup_M.o [1]
+CSTACK$$Base          0x10000c38         --   Gb  - Linker created -
+CSTACK$$Limit         0x10000c78         --   Gb  - Linker created -
+DebugMon_Handler      0x00003751   0x4  Code  Wk  cstartup_M.o [1]
+FM0_COLD              0x00000809        Code  Gb  FISH_NXP_M0_IAR.o [1]
+FM0_SYSTICK_ISR       0x00000881        Code  Gb  FISH_NXP_M0_IAR.o [1]
+HardFault_Handler     0x00003739   0x8  Code  Wk  cstartup_M.o [1]
+InStream_Read         0x00003629  0x22  Code  Lc  packbits_init.o [4]
+MemManage_Handler     0x00003741   0x4  Code  Wk  cstartup_M.o [1]
+NMI_Handler           0x00003735   0x4  Code  Wk  cstartup_M.o [1]
+NVIC_SystemReset      0x00003719  0x12  Code  Lc  cstartup_M.o [1]
+PendSV_Handler        0x00003755   0x4  Code  Wk  cstartup_M.o [1]
+Region$$Table$$Base   0x0000378c         --   Gb  - Linker created -
+Region$$Table$$Limit  0x000037a8         --   Gb  - Linker created -
+SVC_Handler           0x0000374d   0x4  Code  Wk  cstartup_M.o [1]
+SysTick_Handler       0x00003759   0x8  Code  Wk  cstartup_M.o [1]
+UsageFault_Handler    0x00003749   0x4  Code  Wk  cstartup_M.o [1]
+__aeabi_ldivmod       0x00003581        Code  Gb  I64DivMod.o [4]
+__aeabi_uldivmod      0x000035bf        Code  Gb  I64DivMod.o [4]
+__exit                0x0000370d        Code  Gb  XXexit.o [4]
+__iar_data_init3      0x00003765  0x28  Code  Gb  data_init.o [4]
+__iar_packbits_init3  0x0000364b  0xb8  Code  Gb  packbits_init.o [4]
+__iar_program_start   0x00003761   0x2  Code  Gb  cstartup_M.o [1]
+__vector_table        0x00000000  0x40  Data  Gb  cstartup_M.o [1]
+abort                 0x00003703   0xa  Code  Gb  abort.o [3]
+c_64by32div           0x0000355d  0x24  Code  Gb  FISH_NXP_M0_main.o [1]
+
+
+[1] = C:\Documents and Settings\cw\AllForth\AllFISH\FISH IAR\FISH_NXP_M0_Port\NXP_81x_PUBREL_SRM_mBED_MAX\Obj
+[2] = command line
+[3] = dl6M_tln.a
+[4] = rt6M_tl.a
+
+  14 156 bytes of readonly  code memory
+     164 bytes of readonly  data memory
+   3 189 bytes of readwrite data memory
+
+Errors: none
+Warnings: none
